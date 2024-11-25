@@ -53,4 +53,4 @@ if ingredients_list:
         st.success('Your Smoothie is ordered!', icon="✅")
 
 # Display the raw response as text in Streamlit
-st.text(smoothiefroot_response.text)
+# st.text(smoothiefroot_response.text)
