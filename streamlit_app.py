@@ -59,7 +59,7 @@ st.text(smoothiefroot_response.text)
 # Parse the response JSON and display it
 if smoothiefroot_response.status_code == 200:  # Ensure the request was successful
     response_json = smoothiefroot_response.json()
-    st.json(response_json)  # Display JSON content in a formatted way
+    # st.json(response_json)  # Display JSON content in a formatted way
+    sf_df = st.dataframe(data = st.text(smoothiefroot_response).json(), use_container_width = True)
 else:
     st.error(f"Error {smoothiefroot_response.status_code}: {smoothiefroot_response.text}")
-# sf_df = st.dataframe(data = st.text(smoothiefroot_response).json(), use_container_width = True)
