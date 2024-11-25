@@ -1,6 +1,5 @@
 # Import python packages
 import streamlit as st
-# from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 import requests
 
@@ -37,6 +36,8 @@ if ingredients_list:
 
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen + ' '
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+        sf_df = st.dataframe(data = smoothiefroot_response.json(), use_container_width = True)
 
     # st.write(ingredients_string)
 
@@ -51,15 +52,5 @@ if ingredients_list:
         session.sql(my_insert_stmt).collect()
         st.success('Your Smoothie is ordered!', icon="✅")
 
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-
 # Display the raw response as text in Streamlit
 st.text(smoothiefroot_response.text)
-
-# Parse the response JSON and display it
-if smoothiefroot_response.status_code == 200:  # Ensure the request was successful
-    response_json = smoothiefroot_response.json()
-    # st.json(response_json)  # Display JSON content in a formatted way
-    sf_df = st.dataframe(data = smoothiefroot_response.json(), use_container_width = True)
-else:
-    st.error(f"Error {smoothiefroot_response.status_code}: {smoothiefroot_response.text}")
